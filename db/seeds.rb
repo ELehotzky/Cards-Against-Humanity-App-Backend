@@ -1,3 +1,5 @@
+require "json";
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -5,3 +7,22 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+#Deck
+base_set = Deck.create(name: "Base Set");
+
+file = File.read("db/base_set.json")
+base_set_hash = JSON.parse(file)
+
+#Seeding black cards
+base_set_hash["blackCards"].each do |card|
+	if card["pick"] == 1
+		BlackCard.create(content: card["text"], deck_id: 1)
+	end
+
+end
+
+#Seeding white cards
+base_set_hash["whiteCards"].each do |card|
+	WhiteCard.create(content: card, deck_id: 1)	
+end
