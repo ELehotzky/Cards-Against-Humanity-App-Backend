@@ -10,16 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_28_191102) do
+ActiveRecord::Schema.define(version: 2018_10_01_145537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "black_cards", force: :cascade do |t|
     t.string "content"
-    t.integer "deck_id"
+    t.bigint "decks_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["decks_id"], name: "index_black_cards_on_decks_id"
   end
 
   create_table "decks", force: :cascade do |t|
@@ -28,11 +29,44 @@ ActiveRecord::Schema.define(version: 2018_09_28_191102) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "white_cards", force: :cascade do |t|
-    t.string "content"
-    t.integer "deck_id"
+  create_table "games", force: :cascade do |t|
+    t.bigint "rounds_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rounds_id"], name: "index_games_on_rounds_id"
+  end
+
+  create_table "played_cards", force: :cascade do |t|
+    t.boolean "played"
+    t.integer "votes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "rounds", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.integer "points"
+    t.bigint "game_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_users_on_game_id"
+  end
+
+  create_table "white_cards", force: :cascade do |t|
+    t.string "content"
+    t.bigint "decks_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["decks_id"], name: "index_white_cards_on_decks_id"
+  end
+
+  add_foreign_key "black_cards", "decks", column: "decks_id"
+  add_foreign_key "games", "rounds", column: "rounds_id"
+  add_foreign_key "users", "games"
+  add_foreign_key "white_cards", "decks", column: "decks_id"
 end

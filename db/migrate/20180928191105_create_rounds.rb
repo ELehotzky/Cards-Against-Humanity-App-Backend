@@ -1,8 +1,8 @@
 class CreateRounds < ActiveRecord::Migration[5.2]
   def change
     create_table :rounds do |t|
-      t.belongs_to :game_id, foreign_key: true
-      t.string :black_card
+      # t.has_many :white_cards, :as => :game_cards
+      # t.has_one :black_card, through: :deck
 
       t.timestamps
     end
