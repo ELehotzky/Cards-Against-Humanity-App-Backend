@@ -17,10 +17,10 @@ ActiveRecord::Schema.define(version: 2018_10_01_145537) do
 
   create_table "black_cards", force: :cascade do |t|
     t.string "content"
-    t.bigint "decks_id"
+    t.bigint "deck_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["decks_id"], name: "index_black_cards_on_decks_id"
+    t.index ["deck_id"], name: "index_black_cards_on_deck_id"
   end
 
   create_table "decks", force: :cascade do |t|
@@ -59,14 +59,14 @@ ActiveRecord::Schema.define(version: 2018_10_01_145537) do
 
   create_table "white_cards", force: :cascade do |t|
     t.string "content"
-    t.bigint "decks_id"
+    t.bigint "deck_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["decks_id"], name: "index_white_cards_on_decks_id"
+    t.index ["deck_id"], name: "index_white_cards_on_deck_id"
   end
 
-  add_foreign_key "black_cards", "decks", column: "decks_id"
+  add_foreign_key "black_cards", "decks"
   add_foreign_key "games", "rounds", column: "rounds_id"
   add_foreign_key "users", "games"
-  add_foreign_key "white_cards", "decks", column: "decks_id"
+  add_foreign_key "white_cards", "decks"
 end
