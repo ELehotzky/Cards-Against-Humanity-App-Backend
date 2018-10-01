@@ -1,3 +1,4 @@
+
 class BlackCardsController < ApplicationController
   def index
     black_cards = BlackCard.all

@@ -1,4 +1,6 @@
-class UsersWarpController extends WarpCable::Controller
+
+class UsersWarpController < WarpCable::Controller
 
 
 end
+

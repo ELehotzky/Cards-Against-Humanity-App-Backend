@@ -1,3 +1,6 @@
 class WhiteCard < ApplicationRecord
-  belongs_to :deck
+
+
+	belongs_to :deck
+
 end
