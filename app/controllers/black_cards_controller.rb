@@ -1,5 +1,8 @@
-class BlackCardsController < ApplicationController
-  def index
+class BlackCardsController < Hyper::Controller
+  def index(params)
+  	BlackCards.after_create do 
+  		yield BlackCards.all 
+  	end
   end
 
   def show
