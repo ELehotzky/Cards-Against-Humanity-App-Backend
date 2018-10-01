@@ -1,10 +1,11 @@
-class BlackCardsController < Hyper::Controller
-  def index(params)
-  	BlackCards.after_create do 
-  		yield BlackCards.all 
-  	end
+
+class BlackCardsController < ApplicationController
+  def index
+    black_cards = BlackCard.all
+    render json: black_cards
   end
 
   def show
+    byebug
   end
 end

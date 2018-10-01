@@ -1,4 +1,5 @@
 class BlackCard < ApplicationRecord
 
-	belongs_to :deck
+  belongs_to :deck
+
 end
