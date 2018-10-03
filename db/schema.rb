@@ -17,40 +17,36 @@ ActiveRecord::Schema.define(version: 2018_10_01_145537) do
 
   create_table "black_cards", force: :cascade do |t|
     t.string "content"
-    t.bigint "deck_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["deck_id"], name: "index_black_cards_on_deck_id"
-  end
-
-  create_table "decks", force: :cascade do |t|
-    t.string "name"
+    t.integer "round_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "games", force: :cascade do |t|
-    t.bigint "rounds_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["rounds_id"], name: "index_games_on_rounds_id"
   end
 
   create_table "played_cards", force: :cascade do |t|
-    t.boolean "played"
-    t.integer "votes"
+    t.boolean "played", default: false
+    t.integer "votes", default: 0
+    t.integer "white_card_id"
+    t.integer "user_id"
+    t.integer "round_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "rounds", force: :cascade do |t|
+    t.integer "game_id"
+    t.integer "black_card_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.integer "points"
+    t.integer "points", default: 0
     t.bigint "game_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -59,14 +55,9 @@ ActiveRecord::Schema.define(version: 2018_10_01_145537) do
 
   create_table "white_cards", force: :cascade do |t|
     t.string "content"
-    t.bigint "deck_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["deck_id"], name: "index_white_cards_on_deck_id"
   end
 
-  add_foreign_key "black_cards", "decks"
-  add_foreign_key "games", "rounds", column: "rounds_id"
   add_foreign_key "users", "games"
-  add_foreign_key "white_cards", "decks"
 end

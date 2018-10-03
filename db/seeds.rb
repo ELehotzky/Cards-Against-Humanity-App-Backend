@@ -9,7 +9,7 @@ require "json";
 #   Character.create(name: 'Luke', movie: movies.first)
 
 #Deck
-base_set = Deck.create(name: "Base Set");
+
 
 file = File.read("db/base_set.json")
 base_set_hash = JSON.parse(file)
@@ -17,12 +17,14 @@ base_set_hash = JSON.parse(file)
 #Seeding black cards
 base_set_hash["blackCards"].each do |card|
 	if card["pick"] == 1
-		BlackCard.create(content: card["text"], deck_id: 1)
+		BlackCard.create(content: card["text"])
 	end
 
 end
 
 #Seeding white cards
 base_set_hash["whiteCards"].each do |card|
-	WhiteCard.create(content: card, deck_id: 1)	
+	WhiteCard.create(content: card)
 end
+
+Game.create()

@@ -1,3 +1,3 @@
 class WhiteCard < ApplicationRecord
-  belongs_to :deck
+  has_one :game_card
 end
